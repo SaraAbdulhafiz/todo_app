@@ -41,8 +41,8 @@ DateTime selectedDate = DateTime.now();
           locale: 'en_ISO',
         ),
         Expanded(
-          child: FutureBuilder<QuerySnapshot<TaskModel>>(
-            future: FirebaseManager.getTasks(selectedDate),
+          child: StreamBuilder<QuerySnapshot<TaskModel>>(
+            stream: FirebaseManager.getTasks(selectedDate),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());

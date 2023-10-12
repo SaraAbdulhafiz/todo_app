@@ -24,9 +24,9 @@ class FirebaseManager {
   return docRef.set(task);
   }
 
-  static Future<QuerySnapshot<TaskModel>> getTasks(DateTime date){
+  static Stream<QuerySnapshot<TaskModel>> getTasks(DateTime date){
   return
     getTasksCollection().
-    where("date",isEqualTo: DateUtils.dateOnly(date).microsecondsSinceEpoch).get();
+    where("date",isEqualTo: DateUtils.dateOnly(date).microsecondsSinceEpoch).snapshots();
   }
 }
