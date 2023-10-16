@@ -87,13 +87,30 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
           ElevatedButton(
             style: ElevatedButton.styleFrom(),
             onPressed: () {
-              TaskModel task = TaskModel(title: titleController.text,
-                  description: descriptionController.text,
-                  date: DateUtils.dateOnly(selectedDate).microsecondsSinceEpoch,
+              TaskModel task = TaskModel(
+                title: titleController.text,
+                description: descriptionController.text,
+                date: DateUtils.dateOnly(selectedDate).microsecondsSinceEpoch,
               );
-              FirebaseManager.addTask(task).then((value) {
-                Navigator.pop(context);
-              });
+              FirebaseManager.addTask(task);
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text("Successfully"),
+                    content: Text("Task Added to firebase "),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        },
+                        child: Text("Thank You"),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
             child: Text("Add Task"),
           ),

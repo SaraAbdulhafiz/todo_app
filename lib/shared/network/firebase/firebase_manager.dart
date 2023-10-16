@@ -29,4 +29,12 @@ class FirebaseManager {
     getTasksCollection().
     where("date",isEqualTo: DateUtils.dateOnly(date).microsecondsSinceEpoch).snapshots();
   }
+
+  static Future<void> deleteTask(String taskId){
+   return getTasksCollection().doc(taskId).delete();
+  }
+
+  static void updateTask(TaskModel model){
+   getTasksCollection().doc(model.id).update(model.toJson());
+  }
 }
